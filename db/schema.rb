@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011232615) do
+ActiveRecord::Schema.define(version: 20180322183845) do
+
+  create_table "pokemons", force: :cascade do |t|
+    t.string "name"
+    t.integer "level"
+    t.integer "trainer_id"
+    t.integer "ndex"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "health"
+    t.integer "trainers_id"
+    t.index ["trainer_id"], name: "index_pokemons_on_trainer_id"
+    t.index ["trainers_id"], name: "index_pokemons_on_trainers_id"
+  end
 
   create_table "trainers", force: :cascade do |t|
     t.string "name"
@@ -26,8 +39,12 @@ ActiveRecord::Schema.define(version: 20171011232615) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "pokemons_id"
+    t.integer "trainers_id"
     t.index ["email"], name: "index_trainers_on_email", unique: true
+    t.index ["pokemons_id"], name: "index_trainers_on_pokemons_id"
     t.index ["reset_password_token"], name: "index_trainers_on_reset_password_token", unique: true
+    t.index ["trainers_id"], name: "index_trainers_on_trainers_id"
   end
 
 end
